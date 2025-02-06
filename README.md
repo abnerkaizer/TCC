@@ -1,6 +1,6 @@
 # TCC
 
-Para os exemplos envolvendo PyPy JIT, descompacte o interpretador pypy_runtime/pypy3.10-v7.3.17-linux64.zip e coloque a pasta descompactada dentro da do exemplo.
+Para os exemplos envolvendo PyPy JIT, descompacte o interpretador pypy_runtime/pypy3.10-v7.3.17-linux64.zip e coloque a pasta descompactada dentro da do exemplo. Faça os mesmo com a pasta pypy_runtime/python.
 
 Siga as instruções para cada exemplos em seus respectivos README.md.
 
