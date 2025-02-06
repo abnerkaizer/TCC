@@ -104,3 +104,4 @@ ENV/
 # Serverless
 .serverless/
 .requirements
+python/
