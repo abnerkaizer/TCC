@@ -1,0 +1,190 @@
+{
+  "service": {
+    "service": "aws-python-primes-pypy",
+    "serviceObject": {
+      "name": "aws-python-primes-pypy"
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "provided.al2023",
+      "region": "us-east-1",
+      "stage": "dev",
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "PrimesLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/aws-python-primes-pypy-dev-primes"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "aws-python-primes-pypy",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:TagResource"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-python-primes-pypy-dev*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/aws-python-primes-pypy-dev*:*:*"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "aws-python-primes-pypy",
+                    "dev",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "PrimesLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-us-east-1-889e4f4f-dadf",
+                "S3Key": "serverless/aws-python-primes-pypy/dev/1738092076895-2025-01-28T19:21:16.895Z/aws-python-primes-pypy.zip"
+              },
+              "Handler": "handler.primes",
+              "Runtime": "provided.al2023",
+              "FunctionName": "aws-python-primes-pypy-dev-primes",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "PrimesLogGroup"
+            ]
+          },
+          "PrimesLambdaVersionRlzAsaDP50VpqzaeS2xcnr249BrSgd7zcLWAJQVM": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "PrimesLambdaFunction"
+              },
+              "CodeSha256": "kgPvDvizLNMI8/NAVzoiECqXe5y1XsSR69gAf/I8/i8="
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "serverless-framework-deployments-us-east-1-889e4f4f-dadf",
+            "Export": {
+              "Name": "sls-aws-python-primes-pypy-dev-ServerlessDeploymentBucketName"
+            }
+          },
+          "PrimesLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "PrimesLambdaVersionRlzAsaDP50VpqzaeS2xcnr249BrSgd7zcLWAJQVM"
+            },
+            "Export": {
+              "Name": "sls-aws-python-primes-pypy-dev-PrimesLambdaFunctionQualifiedArn"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "pluginsData": {},
+    "functions": {
+      "primes": {
+        "handler": "handler.primes",
+        "events": [],
+        "name": "aws-python-primes-pypy-dev-primes",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "provided.al2023",
+        "vpc": {},
+        "versionLogicalId": "PrimesLambdaVersionRlzAsaDP50VpqzaeS2xcnr249BrSgd7zcLWAJQVM"
+      }
+    },
+    "configValidationMode": "warn",
+    "serviceFilename": "serverless.yml",
+    "initialServerlessConfig": {
+      "service": "aws-python-primes-pypy",
+      "frameworkVersion": "4",
+      "provider": {
+        "$ref": "$[\"service\"][\"provider\"]"
+      },
+      "functions": {
+        "$ref": "$[\"service\"][\"functions\"]"
+      }
+    },
+    "appId": null,
+    "orgId": null,
+    "layers": {},
+    "artifact": "/home/abner/Projects/TCC/pypy/aws-python-primes-pypy/.serverless/aws-python-primes-pypy.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/aws-python-primes-pypy/dev/1738092076895-2025-01-28T19:21:16.895Z",
+    "artifact": "aws-python-primes-pypy.zip"
+  }
+}

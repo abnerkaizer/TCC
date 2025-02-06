@@ -1,0 +1,13 @@
+service: aws-python-simple-http-endpoint
+
+provider:
+  name: aws
+  runtime: python3.10
+
+functions:
+  currentTime:
+    handler: handler.endpoint
+    events:
+      - httpApi:
+          path: /time
+          method: get

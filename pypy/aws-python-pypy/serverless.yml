@@ -1,0 +1,11 @@
+service: aws-python-pypy
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: provided.al2023
+
+functions:
+  hello:
+    handler: handler.hello

@@ -1,0 +1,16 @@
+service: aws-python-http-api-pypy
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: provided.al2023
+  region: us-east-1 # ou a região de sua preferência
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+

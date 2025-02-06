@@ -1,0 +1,13 @@
+service: aws-python-primes-pypy
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: provided.al2023
+  region: us-east-1
+
+
+functions:
+  primes:
+    handler: handler.primes

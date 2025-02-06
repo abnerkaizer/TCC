@@ -1,0 +1,14 @@
+service: aws-runtime-cpython
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: python3.10
+  region: us-east-1
+
+
+functions:
+  primes:
+    handler: handler.primes
+    timeout: 30

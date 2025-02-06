@@ -1,0 +1,13 @@
+service: aws-python-scheduled-cron-pypy
+
+frameworkVersion: "4"
+
+provider:
+  name: aws
+  runtime: provided.al2023
+
+functions:
+  rateHandler:
+    handler: handler.run
+    events:
+      - schedule: rate(1 minute)
